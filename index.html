@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - Hang Nguyen</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #1e40af;
+            --secondary-color: #1e3a8a;
+            --accent-color: #3b82f6;
+            --text-dark: #1f2937;
+            --text-light: #6b7280;
+            --bg-light: #f8fafc;
+            --bg-white: #ffffff;
+            --gradient: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+        }
+
+        /* Header */
+        header {
+            background: var(--bg-white);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .lang-buttons {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .lang-toggle {
+            background: white;
+            color: var(--text-dark);
+            border: 2px solid var(--primary-color);
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            width: 50px;
+            text-align: center;
+        }
+
+        .lang-toggle:hover {
+            background: var(--bg-light);
+            transform: translateY(-2px);
+        }
+
+        .lang-toggle.active {
+            background: var(--primary-color);
+            color: white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+
+
+
+
+        /* Sections */
+        .section {
+            padding: 80px 0;
+        }
+
+        .section:nth-child(even) {
+            background: var(--bg-light);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--text-dark);
+        }
+
+        /* About Section */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-image {
+            text-align: center;
+        }
+
+        .profile-img {
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid var(--primary-color);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .about-text h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .about-text p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+        }
+
+        .about-social {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .about-social a {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border: 2px solid var(--primary-color);
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .about-social a:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: var(--bg-white);
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+
+        .project-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .project-card p {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tech-tag {
+            background: var(--primary-color);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: auto;
+        }
+
+        .project-links a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .project-links a:hover {
+            text-decoration: underline;
+        }
+
+        /* Skills Section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: auto auto;
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .skill-category:nth-child(1),
+        .skill-category:nth-child(2),
+        .skill-category:nth-child(3) {
+            grid-row: 1;
+        }
+
+        .skill-category:nth-child(4),
+        .skill-category:nth-child(5) {
+            grid-row: 2;
+        }
+
+        .skill-category:nth-child(4) {
+            grid-column: 1;
+        }
+
+        .skill-category:nth-child(5) {
+            grid-column: 2;
+        }
+
+        .skill-category {
+            background: var(--bg-white);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .skill-category h3 {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .skill-item {
+            background: var(--bg-light);
+            padding: 0.75rem 1rem;
+            border-radius: 5px;
+            margin-bottom: 0.75rem;
+            color: var(--text-dark);
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .skill-item:hover {
+            background: var(--primary-color);
+            color: white;
+            transform: translateX(5px);
+        }
+
+        /* Blog Section */
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .blog-card {
+            background: var(--bg-white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .blog-image {
+            height: 200px;
+            background: var(--gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+        }
+
+        .blog-content {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .blog-date {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        .blog-title {
+            color: var(--primary-color);
+            margin: 0.5rem 0;
+        }
+
+        .blog-content p {
+            flex-grow: 1;
+            margin-bottom: 1rem;
+        }
+
+        .read-more {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            margin-top: auto;
+        }
+
+        .read-more:hover {
+            color: var(--secondary-color);
+            text-decoration: underline;
+        }
+
+        /* Contact Section */
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+
+        .contact-info h3 {
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .contact-item i {
+            color: var(--primary-color);
+            margin-right: 1rem;
+            width: 20px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .social-links a {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .contact-form {
+            background: var(--bg-white);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .submit-btn {
+            background: var(--primary-color);
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--text-dark);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .about-social {
+                justify-content: center;
+            }
+
+            .about-social a {
+                font-size: 0.9rem;
+                padding: 0.4rem 0.8rem;
+            }
+
+            .contact-content {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            #about {
+                padding-top: 100px !important;
+            }
+        }
+
+        /* Hidden class for language switching */
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">Portfolio</div>
+            <ul class="nav-links">
+                <li><a href="#about" data-en="About" data-vi="Giới thiệu">About</a></li>
+                <li><a href="#projects" data-en="Projects" data-vi="Dự án">Projects</a></li>
+                <li><a href="#blog" data-en="Blog" data-vi="Blog">Blog</a></li>
+                <li><a href="#skills" data-en="Skills" data-vi="Kỹ năng">Skills</a></li>
+                <li><a href="#contact" data-en="Contact" data-vi="Liên hệ">Contact</a></li>
+            </ul>
+            <div class="lang-buttons">
+                <button class="lang-toggle active" onclick="setLanguage('en')">EN</button>
+                <button class="lang-toggle" onclick="setLanguage('vi')">VI</button>
+            </div>
+            <div class="mobile-menu">
+                <i class="fas fa-bars"></i>
+            </div>
+        </nav>
+    </header>
+
+    <!-- About Section -->
+    <section id="about" class="section" style="padding-top: 120px;">
+        <div class="container">
+            <h2 class="section-title" data-en="About Me" data-vi="Giới thiệu">About Me</h2>
+            <div class="about-content">
+                <div class="about-image">
+                    <img src="https://drive.google.com/uc?export=view&id=1nGLRP8dFwrpSguB9bfYIBq8y2sS26jq8" alt="Profile" class="profile-img">
+                </div>  
+                <div class="about-text">
+                    <h3 data-en="Hello, I'm Hang Nguyen" data-vi="Xin chào, tôi là Hằng Nguyễn">Hello, I'm Hang Nguyen</h3>
+                    <p data-en="I'm a passionate data science student currently pursuing my degree at University of Economics - The University of Danang. I'm deeply interested in machine learning, data analysis, and turning raw data into meaningful insights." data-vi="Tôi là một sinh viên khoa học dữ liệu đầy đam mê hiện đang theo học tại Trường Đại học Kinh tế - Đại học Đà Nẵng. Tôi rất quan tâm đến học máy, phân tích dữ liệu và biến dữ liệu thô thành những hiểu biết có ý nghĩa.">I'm a passionate data science student currently pursuing my degree at University of Economics - The University of Danang. I'm deeply interested in machine learning, data analysis, and turning raw data into meaningful insights.</p>
+                    <p data-en="Through various projects and coursework, I've gained hands-on experience with Python, SQL, and modern data science tools. I love exploring datasets, building data pipeline, and creating visualizations that tell compelling stories." data-vi="Thông qua các dự án và khóa học khác nhau, tôi đã có kinh nghiệm thực hành với Python, SQL và các công cụ khoa học dữ liệu hiện đại. Tôi thích khám phá bộ dữ liệu, xây dựng đường ống dữ liệu và tạo ra những hình ảnh trực quan kể những câu chuyện hấp dẫn.">Through various projects and coursework, I've gained hands-on experience with Python, SQL, and modern data science tools. I love exploring datasets, building data pipeline, and creating visualizations that tell compelling stories.</p>
+                    
+                    <div class="about-social">
+                        <a href="https://www.linkedin.com/in/nvthuyhang/" target="_blank">
+                            <i class="fab fa-linkedin"></i>
+                            <span>LinkedIn</span>
+                        </a>
+                        <a href="https://github.com/Hannahnv" target="_blank">
+                            <i class="fab fa-github"></i>
+                            <span>GitHub</span>
+                        </a>
+                        <a href="https://medium.com/@nvthuyhang" target="_blank">
+                            <i class="fab fa-medium"></i>
+                            <span>Medium</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="section">
+        <div class="container">
+            <h2 class="section-title" data-en="Featured Projects" data-vi="Dự án nổi bật">Featured Projects</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <h3 data-en="Cryptocurrency Market Analytics Pipeline" data-vi="Hệ thống phân tích thị trường tiền điện tử">Cryptocurrency Market Analytics Pipeline</h3>
+                    <p data-en="Developed an end-to-end system for collecting, processing, storing, and visualizing data from the top 100 leading cryptocurrencies, combining web scraping, data engineering, and dashboard creation to deliver actionable insights." data-vi="Phát triển hệ thống end-to-end để thu thập, xử lý, lưu trữ và trực quan hóa dữ liệu từ top 100 tiền điện tử hàng đầu, kết hợp web scraping, data engineering và tạo dashboard để cung cấp thông tin có thể hành động.">Developed an end-to-end system for collecting, processing, storing, and visualizing data from the top 100 leading cryptocurrencies, combining web scraping, data engineering, and dashboard creation to deliver actionable insights.</p>
+                    <div class="tech-stack">
+                        <span class="tech-tag">Web Scraping</span>
+                        <span class="tech-tag">Data Engineering</span>
+                        <span class="tech-tag">Django</span>
+                        <span class="tech-tag">PostgreSQL</span>
+                        <span class="tech-tag">Tableau</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://github.com/Hannahnv/Cryptocurrency-Market-Analytics-Pipeline" target="_blank"><i class="fab fa-github"></i> Github</a>
+                        <a href="https://public.tableau.com/app/profile/hang.nguyen6427/viz/CryptocurrencyAnalyticsDashboard-Capstone1/CryptocurrencyTradingMarketOverview" target="_blank"><i class="fas fa-external-link-alt"></i> View Dashboard</a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <h3 data-en="Scrape IMDB Movie Data to Google Cloud Platform" data-vi="Thu thập dữ liệu phim IMDB lên Google Cloud Platform">Scrape IMDB Movie Data to Google Cloud Platform</h3>
+                    <p data-en="Created a robust web scraping solution that efficiently collects movie data and stores it directly to Google Cloud Platform, enabling scalability for data analysis." data-vi="Tạo giải pháp web scraping mạnh mẽ để thu thập dữ liệu phim hiệu quả và lưu trữ trực tiếp trên Google Cloud Platform, tăng khả năng mở rộng cho phân tích dữ liệu.">Created a robust web scraping solution that efficiently collects movie data and stores it directly to Google Cloud Platform, enabling scalability for data analysis.</p>
+                    <div class="tech-stack">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">Selenium</span>
+                        <span class="tech-tag">GCP</span>
+                        <span class="tech-tag">Web Scraping</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://github.com/Hannahnv/Scrape-IMDb-Movie-Data-to-GCP" target="_blank"><i class="fab fa-github"></i> Github</a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <h3 data-en="IMDB Movie Discovery & Recommendation Platform" data-vi="Nền tảng khám phá và đề xuất phim IMDB">IMDB Movie Discovery & Recommendation Platform</h3>
+                    <p data-en="Developed a Streamlit application featuring dynamic visualizations of IMDb trends and a sophisticated recommendation system powered by NLP techniques that matches users with films based on content similarity." data-vi="Phát triển ứng dụng Streamlit với trực quan hóa động các xu hướng IMDb và hệ thống đề xuất tinh vi được hỗ trợ bởi kỹ thuật NLP để gợi ý phim dựa trên độ tương đồng nội dung.">Developed a Streamlit application featuring dynamic visualizations of IMDb trends and a sophisticated recommendation system powered by NLP techniques that matches users with films based on content similarity.</p>
+                    <div class="tech-stack">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">Plotly</span>
+                        <span class="tech-tag">Dashboard</span>
+                        <span class="tech-tag">NLP</span>
+                        <span class="tech-tag">TF-IDF</span>
+                        <span class="tech-tag">Streamlit</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://github.com/Hannahnv/IMDb-Movies-Dashboard-Recommender-App" target="_blank"><i class="fab fa-github"></i> Github</a>
+                        <a href="https://imdb-movies-dashboard-recommender.streamlit.app/" target="_blank"><i class="fas fa-external-link-alt"></i> Live Demo</a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <h3 data-en="Analyze US Retail Data - Predictive Modeling for Retail Performance Optimization" data-vi="Phân tích dữ liệu bán lẻ Mỹ - Mô hình dự đoán tối ưu hiệu suất bán lẻ">Analyze US Retail Data - Predictive Modeling for Retail Performance Optimization</h3>
+                    <p data-en="Built a comprehensive analytics solution that transforms raw sales data into actionable business intelligence, identifying customer segments, forecasting demand patterns, and optimizing inventory management through machine learning." data-vi="Xây dựng giải pháp phân tích toàn diện biến đổi dữ liệu bán hàng thô thành thông tin kinh doanh có thể hành động, xác định phân khúc khách hàng, dự báo mẫu cầu và tối ưu quản lý tồn kho.">Built a comprehensive analytics solution that transforms raw sales data into actionable business intelligence, identifying customer segments, forecasting demand patterns, and optimizing inventory management through machine learning.</p>
+                    <div class="tech-stack">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">Pandas</span>
+                        <span class="tech-tag">Seaborn</span>
+                        <span class="tech-tag">Predictive Analytics</span>
+                        <span class="tech-tag">Machine Learning</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://github.com/Hannahnv/Customer-Transaction-Analysis" target="_blank"><i class="fab fa-github"></i> Github</a>
+                        <a href="https://www.canva.com/design/DAFyyxPlUv0/3eJv_0agDG5GrK2tzJ8c2Q/edit" target="_blank"><i class="fas fa-external-link-alt"></i> View Project</a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <h3 data-en="Global Skincare eCommerce Analytics Dashboard" data-vi="Dashboard phân tích thương mại điện tử mỹ phẩm toàn cầu">Global Skincare eCommerce Analytics Dashboard</h3>
+                    <p data-en="Four years of global skincare ecommerce data transformed into strategic business intelligence through Power BI analytics. This tool enables business managers to visualize market trends and optimize product strategies through comprehensive data-driven insights." data-vi="Bốn năm dữ liệu thương mại điện tử mỹ phẩm toàn cầu được chuyển đổi thành thông tin kinh doanh chiến lược thông qua phân tích Power BI. Công cụ này cho phép quản lý kinh doanh trực quan hóa xu hướng thị trường và tối ưu chiến lược sản phẩm.">Four years of global skincare ecommerce data transformed into strategic business intelligence through Power BI analytics. This tool enables business managers to visualize market trends and optimize product strategies through comprehensive data-driven insights.</p>
+                    <div class="tech-stack">
+                        <span class="tech-tag">Power BI</span>
+                        <span class="tech-tag">DAX</span>
+                        <span class="tech-tag">E-commerce Analytics</span>
+                        <span class="tech-tag">Business Intelligence</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://drive.google.com/file/d/1cBDSEahrV4cUR2-bx5KB3g6qY4vMG8tV/view?usp=sharing" target="_blank"><i class="fas fa-external-link-alt"></i> View Dashboard</a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <h3 data-en="Saudi Arabian Hospitals Performance Dashboard" data-vi="Dashboard hiệu suất bệnh viện Ả Rập Saudi">Saudi Arabian Hospitals Performance Dashboard</h3>
+                    <p data-en="Interactive healthcare analytics platform built in Tableau to track performance across Saudi Arabian hospitals. Enables administrators to benchmark facilities, identify improvement opportunities, and enhance patient care delivery." data-vi="Nền tảng phân tích y tế tương tác được xây dựng trong Tableau để theo dõi hiệu suất các bệnh viện Ả Rập Saudi. Cho phép quản trị viên so sánh cơ sở, xác định cơ hội cải thiện và nâng cao chăm sóc bệnh nhân.">Interactive healthcare analytics platform built in Tableau to track performance across Saudi Arabian hospitals. Enables administrators to benchmark facilities, identify improvement opportunities, and enhance patient care delivery.</p>
+                    <div class="tech-stack">
+                        <span class="tech-tag">Tableau</span>
+                        <span class="tech-tag">Healthcare Analytics</span>
+                        <span class="tech-tag">Interactive Dashboard</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://public.tableau.com/app/profile/hang.nguyen6427/viz/SaudiArabianHospitalPerformanceDashboard/Dashboard1" target="_blank"><i class="fas fa-external-link-alt"></i> View Dashboard</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Section -->
+    <section id="blog" class="section">
+        <div class="container">
+            <h2 class="section-title" data-en="Blog Posts" data-vi="Bài viết">Blog Posts</h2>
+            <div class="blog-grid">
+                <div class="blog-card">
+                    <div class="blog-image">
+                        <i class="fas fa-spider"></i>
+                    </div>
+                    <div class="blog-content">
+                        <h3 class="blog-title" data-en="How I scraped 10K IMDB movies and stored them on GCP effortlessly" data-vi="Cách tôi thu thập 10K phim IMDB và lưu trữ trên GCP một cách dễ dàng">How I scraped 10K IMDB movies and stored them on GCP effortlessly</h3>
+                        <p data-en="Learn to automate IMDB data collection with Selenium and cloud integration" data-vi="Học cách tự động thu thập dữ liệu IMDB với Selenium và tích hợp cloud">Learn to automate IMDB data collection with Selenium and cloud integration</p>
+                        <a href="https://ai.gopubby.com/how-i-scraped-10k-imdb-movies-and-stored-them-on-gcp-effortlessly-246d348360f0" target="_blank" class="read-more" data-en="Read on Medium" data-vi="Đọc trên Medium">Read on Medium</a>
+                    </div>
+                </div>
+
+                <div class="blog-card">
+                    <div class="blog-image">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="blog-content">
+                        <h3 class="blog-title" data-en="Build an interactive IMDB movies dashboard with Streamlit - a practical guide" data-vi="Xây dựng dashboard phim IMDB tương tác với Streamlit - hướng dẫn thực hành">Build an interactive IMDB movies dashboard with Streamlit - a practical guide</h3>
+                        <p data-en="Unlock the power of Streamlit and transform raw movie data into a dynamic dashboard" data-vi="Khai phá sức mạnh của Streamlit và biến đổi dữ liệu phim thô thành dashboard động">Unlock the power of Streamlit and transform raw movie data into a dynamic dashboard</p>
+                        <a href="https://ai.gopubby.com/build-an-interactive-imdb-movies-dashboard-with-streamlit-a-practical-guide-14b455f71a52" target="_blank" class="read-more" data-en="Read on Medium" data-vi="Đọc trên Medium">Read on Medium</a>
+                    </div>
+                </div>
+
+                <div class="blog-card">
+                    <div class="blog-image">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div class="blog-content">
+                        <h3 class="blog-title" data-en="Develop a transparent, multi-criteria movie recommendation using NLP and Streamlit" data-vi="Phát triển hệ thống đề xuất phim đa tiêu chí minh bạch sử dụng NLP và Streamlit">Develop a transparent, multi-criteria movie recommendation using NLP and Streamlit</h3>
+                        <p data-en="A practical guide to designing content-based recommendation systems, from data preprocessing to interactive user interface" data-vi="Hướng dẫn thực hành thiết kế hệ thống đề xuất dựa trên nội dung, từ xử lý dữ liệu đến giao diện người dùng tương tác">A practical guide to designing content-based recommendation systems, from data preprocessing to interactive user interface</p>
+                        <a href="https://medium.com/data-and-beyond/develop-a-transparent-multi-criteria-movie-recommender-using-nlp-and-streamlit-8ec5929412e3" target="_blank" class="read-more" data-en="Read on Medium" data-vi="Đọc trên Medium">Read on Medium</a>
+                    </div>
+                </div>
+
+                <div class="blog-card">
+                    <div class="blog-image">
+                        <i class="fas fa-cloud"></i>
+                    </div>
+                    <div class="blog-content">
+                        <h3 class="blog-title" data-en="Unlocking the power of cloud computing - everything you need to know" data-vi="Khai phá sức mạnh của điện toán đám mây - mọi thứ bạn cần biết">Unlocking the power of cloud computing - everything you need to know</h3>
+                        <p data-en="Explore the basics, opportunities, challenges, and key models of cloud computing" data-vi="Khám phá những điều cơ bản, cơ hội, thách thức và các mô hình chính của điện toán đám mây">Explore the basics, opportunities, challenges, and key models of cloud computing</p>
+                        <a href="https://medium.com/@nvthuyhang/unlocking-the-power-of-cloud-computing-everything-you-need-to-know-8e380a37f151" target="_blank" class="read-more" data-en="Read on Medium" data-vi="Đọc trên Medium">Read on Medium</a>
+                    </div>
+                </div>
+
+                <div class="blog-card">
+                    <div class="blog-image">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <div class="blog-content">
+                        <h3 class="blog-title" data-en="Unlocking the power of big data - what it is and why it matters" data-vi="Khai phá sức mạnh của big data - big data là gì và tại sao nó quan trọng">Unlocking the power of big data - what it is and why it matters</h3>
+                        <p data-en="Breaking down the essentials of big data" data-vi="Phân tích những yếu tố cốt lõi của big data">Breaking down the essentials of big data</p>
+                        <a href="https://medium.com/@nvthuyhang/unlocking-the-power-of-big-data-what-it-is-and-why-it-matters-de9ee89c024a" target="_blank" class="read-more" data-en="Read on Medium" data-vi="Đọc trên Medium">Read on Medium</a>
+                    </div>
+                </div>
+
+                <div class="blog-card">
+                    <div class="blog-image">
+                        <i class="fab fa-git-alt"></i>
+                    </div>
+                    <div class="blog-content">
+                        <h3 class="blog-title" data-en="Struggling with Git? This Is the Simple Guide I Wish I Had" data-vi="Đang gặp khó khăn với Git? Đây là hướng dẫn đơn giản mà tôi ước có">Struggling with Git? This Is the Simple Guide I Wish I Had</h3>
+                        <p data-en="Learn the core principles of version control: Clear and beginner-friendly" data-vi="Học các nguyên tắc cốt lõi của quản lý phiên bản: Rõ ràng và thân thiện với người mới bắt đầu">Learn the core principles of version control: Clear and beginner-friendly</p>
+                        <a href="https://medium.com/@nvthuyhang/struggling-with-git-this-is-the-simple-guide-i-wish-i-had-7c6b93581964" target="_blank" class="read-more" data-en="Read on Medium" data-vi="Đọc trên Medium">Read on Medium</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="section">
+        <div class="container">
+            <h2 class="section-title" data-en="Technical Skills" data-vi="Kỹ năng kỹ thuật">Technical Skills</h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3 data-en="Programming Languages" data-vi="Ngôn ngữ lập trình">Programming Languages</h3>
+                    <div class="skill-item">Python</div>
+                    <div class="skill-item">SQL</div>
+                </div>
+
+                <div class="skill-category">
+                    <h3 data-en="Web Scraping" data-vi="Thu thập dữ liệu web">Web Scraping</h3>
+                    <div class="skill-item">Selenium</div>
+                    <div class="skill-item">BeautifulSoup</div>
+                </div>
+
+                <div class="skill-category">
+                    <h3 data-en="Frameworks" data-vi="Frameworks">Frameworks</h3>
+                    <div class="skill-item">Django</div>
+                    <div class="skill-item">Streamlit</div>
+                </div>
+                
+                <div class="skill-category">
+                    <h3 data-en="Data Visualization" data-vi="Trực quan hóa dữ liệu">Data Visualization</h3>
+                    <div class="skill-item">Tableau</div>
+                    <div class="skill-item">Power BI</div>
+                    <div class="skill-item">Looker</div>
+                    <div class="skill-item">D3.js</div>
+                </div>
+
+                <div class="skill-category">
+                    <h3 data-en="Others" data-vi="Khác">Others</h3>
+                    <div class="skill-item">Google Cloud Platform</div>
+                    <div class="skill-item">Git</div>
+                    <div class="skill-item">Jupyter</div>
+                    <div class="skill-item">Machine Learning</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Contact Section -->
+    <section id="contact" class="section">
+        <div class="container">
+            <h2 class="section-title" data-en="Get In Touch" data-vi="Liên hệ">Get In Touch</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3 data-en="Let's Connect" data-vi="Hãy kết nối">Let's Connect</h3>
+                    <p data-en="I'm always interested in discussing new opportunities and collaborations. Feel free to reach out!" data-vi="Tôi luôn quan tâm đến việc thảo luận về những cơ hội và hợp tác mới. Hãy liên hệ với tôi!">I'm always interested in discussing new opportunities and collaborations. Feel free to reach out!</p>
+                    
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>nvthuyhang291012@gmail.com</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <span>(+84) 934 761 961</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span data-en="Ho Chi Minh City, Vietnam" data-vi="Thành phố Hồ Chí Minh, Việt Nam">Da Nang City, Vietnam</span>
+                    </div>
+
+                    <div class="social-links">
+                        <a href="https://www.linkedin.com/in/nvthuyhang/" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://github.com/Hannahnv" title="GitHub"><i class="fab fa-github"></i></a>
+                        <a href="https://medium.com/@nvthuyhang" title="Medium"><i class="fab fa-medium"></i></a>
+                    </div>
+                </div>
+
+                <div class="contact-form">
+                    <form>
+                        <div class="form-group">
+                            <label data-en="Name" data-vi="Tên">Name</label>
+                            <input type="text" required>
+                        </div>
+                        <div class="form-group">
+                            <label data-en="Email" data-vi="Email">Email</label>
+                            <input type="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label data-en="Subject" data-vi="Chủ đề">Subject</label>
+                            <input type="text" required>
+                        </div>
+                        <div class="form-group">
+                            <label data-en="Message" data-vi="Tin nhắn">Message</label>
+                            <textarea rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn" data-en="Send Message" data-vi="Gửi tin nhắn">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p data-en="© 2025 Hang Nguyen. All rights reserved." data-vi="© 2025 Hang Nguyen. Tất cả quyền được bảo lưu.">© 2025 Hang Nguyen. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Language switching functionality
+        let currentLang = 'en';
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            
+            // Update all elements with data attributes
+            const elements = document.querySelectorAll('[data-en][data-vi]');
+            elements.forEach(element => {
+                const newText = element.getAttribute(`data-${currentLang}`);
+                if (newText) {
+                    element.textContent = newText;
+                }
+            });
+
+            // Update button states
+            const buttons = document.querySelectorAll('.lang-toggle');
+            buttons.forEach(button => {
+                button.classList.remove('active');
+            });
+            
+            // Add active class to current language button
+            const activeButton = document.querySelector(`.lang-toggle[onclick="setLanguage('${lang}')"]`);
+            if (activeButton) {
+                activeButton.classList.add('active');
+            }
+
+            // Update page language attribute
+            document.documentElement.lang = currentLang;
+        }
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'en' ? 'vi' : 'en';
+            setLanguage(currentLang);
+        }
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    // Update active nav link
+                    updateActiveNavLink(this.getAttribute('href'));
+                }
+            });
+        });
+
+        // Update active navigation link
+        function updateActiveNavLink(activeSection) {
+            const navLinks = document.querySelectorAll('.nav-links a');
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === activeSection) {
+                    link.classList.add('active');
+                }
+            });
+        }
+
+        // Scroll spy for navigation
+        function scrollSpy() {
+            const sections = document.querySelectorAll('section[id]');
+            const scrollPos = window.scrollY + 150; // Offset for header height
+
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.offsetHeight;
+                const sectionId = section.getAttribute('id');
+
+                if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
+                    updateActiveNavLink('#' + sectionId);
+                }
+            });
+        }
+
+        // Listen for scroll events
+        window.addEventListener('scroll', scrollSpy);
+        
+        // Set initial active section
+        document.addEventListener('DOMContentLoaded', () => {
+            scrollSpy();
+        });
+
+        // Form submission
+        document.querySelector('form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert(currentLang === 'en' ? 'Thank you for your message! I will get back to you soon.' : 'Cảm ơn bạn đã gửi tin nhắn! Tôi sẽ phản hồi sớm.');
+        });
+
+        // Mobile menu toggle (if you want to add mobile menu functionality)
+        document.querySelector('.mobile-menu').addEventListener('click', function() {
+            // Add mobile menu functionality here
+            console.log('Mobile menu clicked');
+        });
+    </script>
+</body>
+</html>
