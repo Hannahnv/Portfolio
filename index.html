@@ -23,6 +23,14 @@
             --gradient: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%);
         }
 
+        /* Dark mode variables */
+        [data-theme="dark"] {
+            --text-dark: #f9fafb;
+            --text-light: #d1d5db;
+            --bg-light: #1f2937;
+            --bg-white: #111827;
+        }
+
         html {
             scroll-behavior: smooth;
         }
@@ -31,6 +39,9 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
             color: var(--text-dark);
+            overflow-x: hidden;
+            background-color: var(--bg-white);
+            transition: all 0.3s ease;
         }
 
         /* Header */
@@ -81,10 +92,28 @@
         .lang-buttons {
             display: flex;
             gap: 0.5rem;
+            align-items: center;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            color: var(--text-dark);
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            margin-right: 0.5rem;
+        }
+
+        .theme-toggle:hover {
+            background: var(--bg-light);
+            transform: rotate(180deg);
         }
 
         .lang-toggle {
-            background: white;
+            background: var(--bg-white);
             color: var(--text-dark);
             border: 2px solid var(--primary-color);
             padding: 0.5rem 1rem;
@@ -113,6 +142,45 @@
             display: none;
             font-size: 1.5rem;
             cursor: pointer;
+        }
+
+        .mobile-nav {
+            display: none;
+            position: fixed;
+            top: 70px;
+            left: 0;
+            width: 100%;
+            background: var(--bg-white);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 999;
+        }
+
+        .mobile-nav.active {
+            display: block;
+        }
+
+        .mobile-nav ul {
+            list-style: none;
+            padding: 1rem 0;
+        }
+
+        .mobile-nav li {
+            border-bottom: 1px solid var(--bg-light);
+        }
+
+        .mobile-nav a {
+            display: block;
+            padding: 1rem 2rem;
+            color: var(--text-dark);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-nav a:hover,
+        .mobile-nav a.active {
+            background: var(--bg-light);
+            color: var(--primary-color);
         }
 
 
@@ -203,7 +271,7 @@
         /* Projects Section */
         .projects-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
         }
 
@@ -293,6 +361,24 @@
 
         .skill-category:nth-child(5) {
             grid-column: 2;
+        }
+
+        /* Reset grid layout for mobile */
+        @media (max-width: 768px) {
+            .skills-grid {
+                grid-template-columns: 1fr;
+                grid-template-rows: unset;
+                max-width: 100%;
+            }
+
+            .skill-category:nth-child(1),
+            .skill-category:nth-child(2),
+            .skill-category:nth-child(3),
+            .skill-category:nth-child(4),
+            .skill-category:nth-child(5) {
+                grid-row: unset;
+                grid-column: unset;
+            }
         }
 
         .skill-category {
@@ -486,9 +572,34 @@
         /* Footer */
         footer {
             background: var(--text-dark);
-            color: white;
+            color: var(--bg-white);
             text-align: center;
             padding: 2rem 0;
+        }
+
+        /* Dark mode specific styles */
+        [data-theme="dark"] footer {
+            background: #0f172a;
+            color: var(--text-dark);
+        }
+
+        [data-theme="dark"] .project-card,
+        [data-theme="dark"] .blog-card,
+        [data-theme="dark"] .skill-category,
+        [data-theme="dark"] .contact-form {
+            border: 1px solid #374151;
+        }
+
+        [data-theme="dark"] .form-group input,
+        [data-theme="dark"] .form-group textarea {
+            background: var(--bg-light);
+            border-color: #374151;
+            color: var(--text-dark);
+        }
+
+        [data-theme="dark"] .form-group input:focus,
+        [data-theme="dark"] .form-group textarea:focus {
+            border-color: var(--primary-color);
         }
 
         /* Animations */
@@ -505,6 +616,14 @@
 
         /* Responsive Design */
         @media (max-width: 768px) {
+            .container {
+                padding: 0 1rem;
+            }
+
+            nav {
+                padding: 1rem;
+            }
+
             .nav-links {
                 display: none;
             }
@@ -516,10 +635,17 @@
             .about-content {
                 grid-template-columns: 1fr;
                 text-align: center;
+                gap: 2rem;
+            }
+
+            .profile-img {
+                width: 200px;
+                height: 200px;
             }
 
             .about-social {
                 justify-content: center;
+                flex-wrap: wrap;
             }
 
             .about-social a {
@@ -529,14 +655,91 @@
 
             .contact-content {
                 grid-template-columns: 1fr;
+                gap: 2rem;
             }
 
             .section-title {
                 font-size: 2rem;
+                margin-bottom: 2rem;
+            }
+
+            .section {
+                padding: 60px 0;
             }
 
             #about {
                 padding-top: 100px !important;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .blog-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+                max-width: 100%;
+            }
+
+            .lang-buttons {
+                gap: 0.25rem;
+            }
+
+            .lang-toggle {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.8rem;
+                width: 45px;
+            }
+
+            .about-text h3 {
+                font-size: 1.5rem;
+            }
+
+            .about-text p {
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 0.5rem;
+            }
+
+            nav {
+                padding: 0.75rem 0.5rem;
+            }
+
+            .logo {
+                font-size: 1.2rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .about-text h3 {
+                font-size: 1.3rem;
+            }
+
+            .profile-img {
+                width: 180px;
+                height: 180px;
+            }
+
+            .project-card,
+            .blog-card,
+            .skill-category {
+                padding: 1.5rem;
+            }
+
+            .contact-form {
+                padding: 1.5rem;
             }
         }
 
@@ -544,6 +747,59 @@
         .hidden {
             display: none;
         }
+
+        /* Scroll Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .fade-in-left {
+            opacity: 0;
+            transform: translateX(-30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .fade-in-right {
+            opacity: 0;
+            transform: translateX(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .scale-in {
+            opacity: 0;
+            transform: scale(0.8);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .scale-in.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* Stagger animation delays for grid items */
+        .stagger-1 { transition-delay: 0.1s; }
+        .stagger-2 { transition-delay: 0.2s; }
+        .stagger-3 { transition-delay: 0.3s; }
+        .stagger-4 { transition-delay: 0.4s; }
+        .stagger-5 { transition-delay: 0.5s; }
+        .stagger-6 { transition-delay: 0.6s; }
     </style>
 </head>
 <body>
@@ -559,6 +815,9 @@
                 <li><a href="#contact" data-en="Contact" data-vi="Liên hệ">Contact</a></li>
             </ul>
             <div class="lang-buttons">
+                <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme">
+                    <i class="fas fa-moon" id="theme-icon"></i>
+                </button>
                 <button class="lang-toggle active" onclick="setLanguage('en')">EN</button>
                 <button class="lang-toggle" onclick="setLanguage('vi')">VI</button>
             </div>
@@ -566,17 +825,28 @@
                 <i class="fas fa-bars"></i>
             </div>
         </nav>
+        
+        <!-- Mobile Navigation -->
+        <div class="mobile-nav">
+            <ul>
+                <li><a href="#about" data-en="About" data-vi="Giới thiệu">About</a></li>
+                <li><a href="#projects" data-en="Projects" data-vi="Dự án">Projects</a></li>
+                <li><a href="#blog" data-en="Blog" data-vi="Blog">Blog</a></li>
+                <li><a href="#skills" data-en="Skills" data-vi="Kỹ năng">Skills</a></li>
+                <li><a href="#contact" data-en="Contact" data-vi="Liên hệ">Contact</a></li>
+            </ul>
+        </div>
     </header>
 
     <!-- About Section -->
     <section id="about" class="section" style="padding-top: 120px;">
         <div class="container">
-            <h2 class="section-title" data-en="About Me" data-vi="Giới thiệu">About Me</h2>
+            <h2 class="section-title fade-in" data-en="About Me" data-vi="Giới thiệu">About Me</h2>
             <div class="about-content">
-                <div class="about-image">
-                    <img src="https://drive.google.com/uc?export=view&id=1nGLRP8dFwrpSguB9bfYIBq8y2sS26jq8" alt="Profile" class="profile-img">
+                <div class="about-image fade-in-left">
+                    <img src="./images/profile.jpg" alt="Profile" class="profile-img">
                 </div>  
-                <div class="about-text">
+                <div class="about-text fade-in-right">
                     <h3 data-en="Hello, I'm Hang Nguyen" data-vi="Xin chào, tôi là Hằng Nguyễn">Hello, I'm Hang Nguyen</h3>
                     <p data-en="I'm a passionate data science student currently pursuing my degree at University of Economics - The University of Danang. I'm deeply interested in machine learning, data analysis, and turning raw data into meaningful insights." data-vi="Tôi là một sinh viên khoa học dữ liệu đầy đam mê hiện đang theo học tại Trường Đại học Kinh tế - Đại học Đà Nẵng. Tôi rất quan tâm đến học máy, phân tích dữ liệu và biến dữ liệu thô thành những hiểu biết có ý nghĩa.">I'm a passionate data science student currently pursuing my degree at University of Economics - The University of Danang. I'm deeply interested in machine learning, data analysis, and turning raw data into meaningful insights.</p>
                     <p data-en="Through various projects and coursework, I've gained hands-on experience with Python, SQL, and modern data science tools. I love exploring datasets, building data pipeline, and creating visualizations that tell compelling stories." data-vi="Thông qua các dự án và khóa học khác nhau, tôi đã có kinh nghiệm thực hành với Python, SQL và các công cụ khoa học dữ liệu hiện đại. Tôi thích khám phá bộ dữ liệu, xây dựng đường ống dữ liệu và tạo ra những hình ảnh trực quan kể những câu chuyện hấp dẫn.">Through various projects and coursework, I've gained hands-on experience with Python, SQL, and modern data science tools. I love exploring datasets, building data pipeline, and creating visualizations that tell compelling stories.</p>
@@ -603,9 +873,9 @@
     <!-- Projects Section -->
     <section id="projects" class="section">
         <div class="container">
-            <h2 class="section-title" data-en="Featured Projects" data-vi="Dự án nổi bật">Featured Projects</h2>
+            <h2 class="section-title fade-in" data-en="Featured Projects" data-vi="Dự án nổi bật">Featured Projects</h2>
             <div class="projects-grid">
-                <div class="project-card">
+                <div class="project-card fade-in stagger-1">
                     <h3 data-en="Cryptocurrency Market Analytics Pipeline" data-vi="Hệ thống phân tích thị trường tiền điện tử">Cryptocurrency Market Analytics Pipeline</h3>
                     <p data-en="Developed an end-to-end system for collecting, processing, storing, and visualizing data from the top 100 leading cryptocurrencies, combining web scraping, data engineering, and dashboard creation to deliver actionable insights." data-vi="Phát triển hệ thống end-to-end để thu thập, xử lý, lưu trữ và trực quan hóa dữ liệu từ top 100 tiền điện tử hàng đầu, kết hợp web scraping, data engineering và tạo dashboard để cung cấp thông tin có thể hành động.">Developed an end-to-end system for collecting, processing, storing, and visualizing data from the top 100 leading cryptocurrencies, combining web scraping, data engineering, and dashboard creation to deliver actionable insights.</p>
                     <div class="tech-stack">
@@ -621,7 +891,7 @@
                     </div>
                 </div>
 
-                <div class="project-card">
+                <div class="project-card fade-in stagger-2">
                     <h3 data-en="Scrape IMDB Movie Data to Google Cloud Platform" data-vi="Thu thập dữ liệu phim IMDB lên Google Cloud Platform">Scrape IMDB Movie Data to Google Cloud Platform</h3>
                     <p data-en="Created a robust web scraping solution that efficiently collects movie data and stores it directly to Google Cloud Platform, enabling scalability for data analysis." data-vi="Tạo giải pháp web scraping mạnh mẽ để thu thập dữ liệu phim hiệu quả và lưu trữ trực tiếp trên Google Cloud Platform, tăng khả năng mở rộng cho phân tích dữ liệu.">Created a robust web scraping solution that efficiently collects movie data and stores it directly to Google Cloud Platform, enabling scalability for data analysis.</p>
                     <div class="tech-stack">
@@ -635,7 +905,7 @@
                     </div>
                 </div>
 
-                <div class="project-card">
+                <div class="project-card fade-in stagger-3">
                     <h3 data-en="IMDB Movie Discovery & Recommendation Platform" data-vi="Nền tảng khám phá và đề xuất phim IMDB">IMDB Movie Discovery & Recommendation Platform</h3>
                     <p data-en="Developed a Streamlit application featuring dynamic visualizations of IMDb trends and a sophisticated recommendation system powered by NLP techniques that matches users with films based on content similarity." data-vi="Phát triển ứng dụng Streamlit với trực quan hóa động các xu hướng IMDb và hệ thống đề xuất tinh vi được hỗ trợ bởi kỹ thuật NLP để gợi ý phim dựa trên độ tương đồng nội dung.">Developed a Streamlit application featuring dynamic visualizations of IMDb trends and a sophisticated recommendation system powered by NLP techniques that matches users with films based on content similarity.</p>
                     <div class="tech-stack">
@@ -652,7 +922,7 @@
                     </div>
                 </div>
 
-                <div class="project-card">
+                <div class="project-card fade-in stagger-4">
                     <h3 data-en="Analyze US Retail Data - Predictive Modeling for Retail Performance Optimization" data-vi="Phân tích dữ liệu bán lẻ Mỹ - Mô hình dự đoán tối ưu hiệu suất bán lẻ">Analyze US Retail Data - Predictive Modeling for Retail Performance Optimization</h3>
                     <p data-en="Built a comprehensive analytics solution that transforms raw sales data into actionable business intelligence, identifying customer segments, forecasting demand patterns, and optimizing inventory management through machine learning." data-vi="Xây dựng giải pháp phân tích toàn diện biến đổi dữ liệu bán hàng thô thành thông tin kinh doanh có thể hành động, xác định phân khúc khách hàng, dự báo mẫu cầu và tối ưu quản lý tồn kho.">Built a comprehensive analytics solution that transforms raw sales data into actionable business intelligence, identifying customer segments, forecasting demand patterns, and optimizing inventory management through machine learning.</p>
                     <div class="tech-stack">
@@ -668,7 +938,7 @@
                     </div>
                 </div>
 
-                <div class="project-card">
+                <div class="project-card fade-in stagger-5">
                     <h3 data-en="Global Skincare eCommerce Analytics Dashboard" data-vi="Dashboard phân tích thương mại điện tử mỹ phẩm toàn cầu">Global Skincare eCommerce Analytics Dashboard</h3>
                     <p data-en="Four years of global skincare ecommerce data transformed into strategic business intelligence through Power BI analytics. This tool enables business managers to visualize market trends and optimize product strategies through comprehensive data-driven insights." data-vi="Bốn năm dữ liệu thương mại điện tử mỹ phẩm toàn cầu được chuyển đổi thành thông tin kinh doanh chiến lược thông qua phân tích Power BI. Công cụ này cho phép quản lý kinh doanh trực quan hóa xu hướng thị trường và tối ưu chiến lược sản phẩm.">Four years of global skincare ecommerce data transformed into strategic business intelligence through Power BI analytics. This tool enables business managers to visualize market trends and optimize product strategies through comprehensive data-driven insights.</p>
                     <div class="tech-stack">
@@ -682,7 +952,7 @@
                     </div>
                 </div>
 
-                <div class="project-card">
+                <div class="project-card fade-in stagger-6">
                     <h3 data-en="Saudi Arabian Hospitals Performance Dashboard" data-vi="Dashboard hiệu suất bệnh viện Ả Rập Saudi">Saudi Arabian Hospitals Performance Dashboard</h3>
                     <p data-en="Interactive healthcare analytics platform built in Tableau to track performance across Saudi Arabian hospitals. Enables administrators to benchmark facilities, identify improvement opportunities, and enhance patient care delivery." data-vi="Nền tảng phân tích y tế tương tác được xây dựng trong Tableau để theo dõi hiệu suất các bệnh viện Ả Rập Saudi. Cho phép quản trị viên so sánh cơ sở, xác định cơ hội cải thiện và nâng cao chăm sóc bệnh nhân.">Interactive healthcare analytics platform built in Tableau to track performance across Saudi Arabian hospitals. Enables administrators to benchmark facilities, identify improvement opportunities, and enhance patient care delivery.</p>
                     <div class="tech-stack">
@@ -701,9 +971,9 @@
     <!-- Blog Section -->
     <section id="blog" class="section">
         <div class="container">
-            <h2 class="section-title" data-en="Blog Posts" data-vi="Bài viết">Blog Posts</h2>
+            <h2 class="section-title fade-in" data-en="Blog Posts" data-vi="Bài viết">Blog Posts</h2>
             <div class="blog-grid">
-                <div class="blog-card">
+                <div class="blog-card scale-in stagger-1">
                     <div class="blog-image">
                         <i class="fas fa-spider"></i>
                     </div>
@@ -714,7 +984,7 @@
                     </div>
                 </div>
 
-                <div class="blog-card">
+                <div class="blog-card scale-in stagger-2">
                     <div class="blog-image">
                         <i class="fas fa-chart-line"></i>
                     </div>
@@ -725,7 +995,7 @@
                     </div>
                 </div>
 
-                <div class="blog-card">
+                <div class="blog-card scale-in stagger-3">
                     <div class="blog-image">
                         <i class="fas fa-robot"></i>
                     </div>
@@ -736,7 +1006,7 @@
                     </div>
                 </div>
 
-                <div class="blog-card">
+                <div class="blog-card scale-in stagger-4">
                     <div class="blog-image">
                         <i class="fas fa-cloud"></i>
                     </div>
@@ -747,7 +1017,7 @@
                     </div>
                 </div>
 
-                <div class="blog-card">
+                <div class="blog-card scale-in stagger-5">
                     <div class="blog-image">
                         <i class="fas fa-database"></i>
                     </div>
@@ -758,7 +1028,7 @@
                     </div>
                 </div>
 
-                <div class="blog-card">
+                <div class="blog-card scale-in stagger-6">
                     <div class="blog-image">
                         <i class="fab fa-git-alt"></i>
                     </div>
@@ -835,7 +1105,7 @@
                     </div>
                     <div class="contact-item">
                         <i class="fas fa-map-marker-alt"></i>
-                        <span data-en="Ho Chi Minh City, Vietnam" data-vi="Thành phố Hồ Chí Minh, Việt Nam">Da Nang City, Vietnam</span>
+                        <span data-en="Da Nang City, Vietnam" data-vi="Thành phố Đà Nẵng, Việt Nam">Da Nang City, Vietnam</span>
                     </div>
 
                     <div class="social-links">
@@ -878,13 +1148,67 @@
     </footer>
 
     <script>
+        // Theme functionality
+        let currentTheme = localStorage.getItem('theme') || 'light';
+
+        function toggleTheme() {
+            currentTheme = currentTheme === 'light' ? 'dark' : 'light';
+            document.documentElement.setAttribute('data-theme', currentTheme);
+            localStorage.setItem('theme', currentTheme);
+            
+            const themeIcon = document.getElementById('theme-icon');
+            if (currentTheme === 'dark') {
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+            } else {
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+            }
+        }
+
+        // Set initial theme
+        document.addEventListener('DOMContentLoaded', () => {
+            document.documentElement.setAttribute('data-theme', currentTheme);
+            const themeIcon = document.getElementById('theme-icon');
+            if (currentTheme === 'dark') {
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+            }
+            scrollSpy();
+            
+            // Initialize scroll animations
+            initScrollAnimations();
+        });
+
+        // Scroll Animations
+        function initScrollAnimations() {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, observerOptions);
+
+            // Observe all elements with animation classes
+            const animatedElements = document.querySelectorAll('.fade-in, .fade-in-left, .fade-in-right, .scale-in');
+            animatedElements.forEach(element => {
+                observer.observe(element);
+            });
+        }
+
         // Language switching functionality
         let currentLang = 'en';
 
         function setLanguage(lang) {
             currentLang = lang;
             
-            // Update all elements with data attributes
+            // Update all elements with data attributes (including mobile nav)
             const elements = document.querySelectorAll('[data-en][data-vi]');
             elements.forEach(element => {
                 const newText = element.getAttribute(`data-${currentLang}`);
@@ -962,7 +1286,7 @@
         
         // Set initial active section
         document.addEventListener('DOMContentLoaded', () => {
-            scrollSpy();
+            // Theme is already set in the first DOMContentLoaded listener
         });
 
         // Form submission
@@ -971,10 +1295,33 @@
             alert(currentLang === 'en' ? 'Thank you for your message! I will get back to you soon.' : 'Cảm ơn bạn đã gửi tin nhắn! Tôi sẽ phản hồi sớm.');
         });
 
-        // Mobile menu toggle (if you want to add mobile menu functionality)
+        // Mobile menu toggle
         document.querySelector('.mobile-menu').addEventListener('click', function() {
-            // Add mobile menu functionality here
-            console.log('Mobile menu clicked');
+            const mobileNav = document.querySelector('.mobile-nav');
+            const icon = this.querySelector('i');
+            
+            mobileNav.classList.toggle('active');
+            
+            // Change icon
+            if (mobileNav.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.mobile-nav a').forEach(link => {
+            link.addEventListener('click', function() {
+                const mobileNav = document.querySelector('.mobile-nav');
+                const icon = document.querySelector('.mobile-menu i');
+                
+                mobileNav.classList.remove('active');
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            });
         });
     </script>
 </body>
